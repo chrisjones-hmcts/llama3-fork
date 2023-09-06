@@ -1,7 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 # This software may be used and distributed according to the terms of the Llama 2 Community License Agreement.
+
+set -e
 
 # Check if ***REMOVED*** environment variable is set
 if [ -z "$***REMOVED***" ]; then
@@ -31,7 +33,12 @@ wget --continue ${***REMOVED***/'*'/"USE_POLICY.md"} -O ${TARGET_FOLDER}"/USE_PO
 echo "Downloading ***REMOVED***"
 wget --continue ${***REMOVED***/'*'/"***REMOVED***.model"} -O ${TARGET_FOLDER}"/***REMOVED***.model"
 wget --continue ${***REMOVED***/'*'/"***REMOVED***_checklist.chk"} -O ${TARGET_FOLDER}"/***REMOVED***_checklist.chk"
-(cd ${TARGET_FOLDER} && md5sum -c ***REMOVED***_checklist.chk)
+CPU_ARCH=$(uname -m)
+  if [ "$CPU_ARCH" = "arm64" ]; then
+    (cd ${TARGET_FOLDER} && md5 ***REMOVED***_checklist.chk)
+  else
+    (cd ${TARGET_FOLDER} && md5sum -c ***REMOVED***_checklist.chk)
+  fi
 
 for m in ${MODEL_SIZE//,/ }
 do
@@ -66,5 +73,9 @@ do
     wget --continue ${***REMOVED***/'*'/"${MODEL_PATH}/params.json"} -O ${TARGET_FOLDER}"/${MODEL_PATH}/params.json"
     wget --continue ${***REMOVED***/'*'/"${MODEL_PATH}/checklist.chk"} -O ${TARGET_FOLDER}"/${MODEL_PATH}/checklist.chk"
     echo "Checking checksums"
-    (cd ${TARGET_FOLDER}"/${MODEL_PATH}" && md5sum -c checklist.chk)
+    if [ "$CPU_ARCH" = "arm64" ]; then
+      (cd ${TARGET_FOLDER}"/${MODEL_PATH}" && md5 checklist.chk)
+    else
+      (cd ${TARGET_FOLDER}"/${MODEL_PATH}" && md5sum -c checklist.chk)
+    fi
 done
