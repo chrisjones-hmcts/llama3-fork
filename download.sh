@@ -56,7 +56,7 @@ do
 
     for s in $(seq -f "0%g" 0 ${SHARD})
     do
-        wget ${***REMOVED***/'*'/"${MODEL_PATH}/consolidated.${s}.pth"} -O ${TARGET_FOLDER}"/${MODEL_PATH}/consolidated.${s}.pth"
+        wget --continue ${***REMOVED***/'*'/"${MODEL_PATH}/consolidated.${s}.pth"} -O ${TARGET_FOLDER}"/${MODEL_PATH}/consolidated.${s}.pth"
     done
 
     wget --continue ${***REMOVED***/'*'/"${MODEL_PATH}/params.json"} -O ${TARGET_FOLDER}"/${MODEL_PATH}/params.json"
