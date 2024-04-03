@@ -2,6 +2,7 @@ import os
 from unittest import TestCase
 from llama.***REMOVED*** import ChatFormat, Tokenizer
 
+# TOKENIZER_PATH=<path> python -m unittest llama/test_***REMOVED***.py
 
 class TokenizerTests(TestCase):
     def setUp(self):
