@@ -98,7 +98,7 @@ Examples using llama-3-8b-chat:
 
 ```
 torchrun --nproc_per_node 1 example_chat_completion.py \
-    --ckpt_dir llama-3-8b-prerelease-instruct/ \
+    --ckpt_dir 8b_instruction_tuned/ \
     --***REMOVED***_path ***REMOVED***.model \
     --max_seq_len 512 --max_batch_size 6
 ```
